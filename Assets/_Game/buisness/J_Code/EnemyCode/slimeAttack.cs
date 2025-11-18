@@ -1,8 +1,9 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerAttack : MonoBehaviour
+public class slimeAttack : MonoBehaviour
 {
-    [SerializeField] private Transform attackTransform;
+     [SerializeField] private Transform attackTransform;
     [SerializeField] private float attackRange = 1.5f;
     [SerializeField] private LayerMask attackLayer;
     [SerializeField] private float damageAmount = 1f;
@@ -16,13 +17,19 @@ public class PlayerAttack : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && attackTimer >= timeBtween)
+
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") && attackTimer >= timeBtween)
         {
             attackTimer = 0f;
             Attack();
+            Debug.Log("bruh");
         }
 
-        attackTimer += Time.deltaTime;
+       attackTimer += Time.deltaTime;
     }
 
     private void Attack()
